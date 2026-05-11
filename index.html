@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Luz Azul - Impactos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- BOTÃO MENU -->
+  <button class="menu-btn" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <h2>Menu</h2>
+    <ul>
+      <li onclick="showSection('inicio')">Início <span>›</span></li>
+      <li onclick="showSection('sobre')">Tela Azul <span>›</span></li>
+      <li onclick="showSection('maleficios')">Malefícios <span>›</span></li>
+      <li onclick="showSection('prevencao')">Prevenção <span>›</span></li>
+      <li onclick="showSection('estatisticas')">Estatísticas <span>›</span></li>
+      <li onclick="showSection('dicas')">Dicas <span>›</span></li>
+    </ul>
+  </aside>
+
+  <main>
+
+    <header>
+      <div class="badge">saúde digital</div>
+      <h1>impacto  <span class="titulo-azul"> invisível</span></h1>
+      <p>Os impactos invisíveis do uso excessivo de telas</p>
+      <hr class="divisor">
+     </header>
+    <section id="inicio" class="active">
+      <h2>Introdução</h2>
+      <p>
+       A exposição prolongada a telas digitais está cada vez mais presente na rotina.
+    O uso constante de celulares, computadores e TVs faz com que o corpo seja
+    impactado de forma silenciosa.
+      </p>
+      <div class="pills">
+        <div class="pill" onclick="showSection('sobre')">Luz Azul</div>
+        <div class="pill" onclick="showSection('maleficios')">Malefícios</div>
+        <div class="pill" onclick="showSection('prevencao')">Prevenção</div>
+        <div class="pill" onclick="showSection('estatisticas')">Estatísticas</div>
+        <div class="pill" onclick="showSection('dicas')">Dicas</div>
+      </div>
+</section>
+    </section>
+
+    <section id="sobre">
+      <h2>O que é a Luz Azul</h2>
+
+      <div class="img-box">
+        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8">
+      </div>
+
+      <p>
+        A luz azul é emitida naturalmente pelo sol, mas também por dispositivos eletrônicos.
+        Ela possui alta energia e consegue penetrar profundamente nos olhos.
+      </p>
+
+      <p>
+        Durante o dia ajuda na atenção, mas à noite pode prejudicar o sono.
+      </p>
+    </section>
+
+    <section id="maleficios">
+      <h2>Malefícios</h2>
+
+      <div class="card">😴 Insônia e dificuldade para dormir</div>
+      <div class="card">👁️ Cansaço e irritação nos olhos</div>
+      <div class="card">🧠 Redução da concentração</div>
+      <div class="card">📉 Queda no desempenho diário</div>
+
+      <p>
+        O uso excessivo principalmente à noite pode desregular o relógio biológico,
+        causando fadiga constante.
+      </p>
+    </section>
+
+    <section id="prevencao">
+      <h2>Prevenção</h2>
+
+      <ul>
+        <li>Ativar modo noturno</li>
+        <li>Evitar telas antes de dormir</li>
+        <li>Regra 20-20-20</li>
+        <li>Reduzir brilho</li>
+      </ul>
+    </section>
+
+    <section id="estatisticas">
+      <h2>Estatísticas</h2>
+
+      <div class="img-box">
+        <img src="">
+      </div>
+
+      <p>
+        Jovens passam em média mais de 7 horas por dia em frente a telas,
+        número que cresce a cada ano.
+      </p>
+    </section>
+
+    <section id="dicas">
+      <h2>Dicas</h2>
+
+      <div class="card">Use filtro de luz azul</div>
+      <div class="card">Evite celular na cama</div>
+      <div class="card">Faça pausas frequentes</div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
