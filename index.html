@@ -4,17 +4,64 @@
   <meta charset="UTF-8">
   <title>Luz Azul - Impactos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    .est{background:#000;font-family:'Rajdhani',sans-serif;color:#fff;padding:32px 24px;max-width:900px;margin:auto;}
+    .sec-title{font-size:.85rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;border-left:3px solid #4d8eff;border-radius:0;padding-left:12px;color:#fff;margin-bottom:20px;}
+    .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+    .stat-card{background:#060c16;border:1px solid #0f1a2e;border-radius:10px;padding:20px 16px;text-align:center;}
+    .stat-num{font-size:2rem;font-weight:700;color:#4d8eff;line-height:1;}
+    .stat-lbl{font-size:.68rem;color:#334155;margin-top:6px;letter-spacing:1px;line-height:1.5;}
+    .divider{border:none;border-top:1px solid #0f1520;margin:0 0 20px;}
+    .g-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+    .g-card{background:#060c16;border:1px solid #0f1a2e;border-radius:10px;padding:16px;}
+    .g-lbl{font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:#1a3a6e;margin-bottom:12px;}
+    .usp-txt{font-size:.78rem;color:#475569;line-height:1.7;margin-bottom:4px;}
+    .usp-txt span{color:#4d8eff;font-weight:700;}
+    .rec-lbl{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:#1e3a5f;margin-bottom:10px;}
+    .rec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
+    .rec-card{background:#060c16;border:1px solid #0f1a2e;border-radius:8px;padding:14px;text-align:center;}
+    .rec-idade{font-size:1rem;font-weight:700;color:#4d8eff;margin-bottom:4px;}
+    .rec-desc{font-size:.72rem;color:#334155;line-height:1.5;}
+    .graficos3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+    .gc{background:#060c16;border:1px solid #0f1a2e;border-radius:10px;padding:16px;text-align:center;}
+    .gc-lbl{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:#1a3a6e;margin-bottom:10px;}
+    .gc-desc{font-size:.68rem;color:#475569;line-height:1.4;margin-top:8px;}
+    .source-line{font-size:.68rem;color:#1e3a5f;margin-top:16px;padding-top:12px;border-top:1px solid #0f1520;}
+    .source-line a{color:#1e3a5f;text-decoration:none;}
+    /* mini jogo */
+    .titulo{font-size:.85rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;border-left:3px solid #4d8eff;border-radius:0;padding-left:12px;color:#fff;margin-bottom:24px;}
+    .inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+    .inp-card{background:#060c16;border:1px solid #0f1a2e;border-radius:10px;padding:16px;}
+    .inp-lbl{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+    .inp-lbl.a{color:#4d8eff;}.inp-lbl.b{color:#a78bfa;}.inp-lbl.c{color:#34d399;}
+    .inp-num{font-size:2rem;font-weight:700;line-height:1;margin-bottom:10px;}
+    .inp-num.a{color:#4d8eff;}.inp-num.b{color:#a78bfa;}.inp-num.c{color:#34d399;}
+    .slider{width:100%;accent-color:#4d8eff;cursor:pointer;}
+    .slider.b{accent-color:#a78bfa;}.slider.c{accent-color:#34d399;}
+    .sub{font-size:.65rem;color:#1a3a6e;margin-top:6px;}
+    .bottom{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;}
+    .livre-box{background:#060c16;border:1px solid #0f1a2e;border-radius:10px;padding:20px;text-align:center;}
+    .livre-lbl{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:#1a3a6e;margin-bottom:8px;}
+    .livre-num{font-size:3rem;font-weight:700;color:#fbbf24;line-height:1;}
+    .livre-sub{font-size:.7rem;color:#334155;margin-top:6px;}
+    .aviso{font-size:.75rem;margin-top:10px;padding:8px 12px;border-radius:6px;text-align:center;}
+    .aviso.ok{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:#34d399;}
+    .aviso.warn{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);color:#fbbf24;}
+    .aviso.bad{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);color:#f87171;}
+    .legenda{margin-top:16px;display:flex;flex-direction:column;gap:8px;}
+    .leg-item{display:flex;align-items:center;gap:10px;font-size:.78rem;color:#475569;}
+    .leg-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+  </style>
 </head>
-
 <body>
 
   <!-- BOTÃO MENU -->
   <button class="menu-btn" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </button>
 
   <!-- SIDEBAR -->
@@ -34,20 +81,15 @@
 
     <header>
       <div class="badge">saúde digital</div>
-      <h1>luz  <span class="titulo-azul"> azul</span></h1>
+      <h1>o problema <span class="titulo-azul"> das telas</span></h1>
       <p>Como as telas estão afetando sua saúde sem você perceber</p>
       <hr class="divisor">
-     </header>
+    </header>
+
+    <!-- INÍCIO -->
     <section id="inicio" class="active">
       <h2>Introdução</h2>
-      <p>
-        Passamos horas em frente a telas todos os dias — e nem percebemos 
-        o impacto que isso causa. A luz azul emitida por celulares, 
-        computadores e TVs afeta nosso <span class="destaque">sono</span>, 
-        nossa <span class="destaque">visão</span> e nossa 
-        <span class="destaque">concentração</span> de forma 
-        <span class="destaque">silenciosa e constante</span>.
-      </p>
+      <p>Passamos horas em frente a telas todos os dias — e nem percebemos o impacto que isso causa. A luz azul emitida por celulares, computadores e TVs afeta nosso <span class="destaque">sono</span>, nossa <span class="destaque">visão</span> e nossa <span class="destaque">concentração</span> de forma <span class="destaque">silenciosa e constante</span>.</p>
       <div class="pills">
         <div class="pill" onclick="showSection('sobre')">Luz Azul</div>
         <div class="pill" onclick="showSection('maleficios')">Malefícios</div>
@@ -59,168 +101,282 @@
         <div class="scroll-line"></div>
         <span class="scroll-txt">explore</span>
       </div>
-<div class="integrantes">
-  <div class="int-label">integrantes</div>
-  <div class="int-grid">
-    <div class="int-card"><span class="int-num">01</span><span class="int-nome">mateus araujo eugenio</span></div>
-    <div class="int-card"><span class="int-num">02</span><span class="int-nome">nome 1</span></div>
-    <div class="int-card"><span class="int-num">03</span><span class="int-nome">nome 2</span></div>
-    <div class="int-card"><span class="int-num">04</span><span class="int-nome">nome 3</span></div>
-    <div class="int-card"><span class="int-num">05</span><span class="int-nome">nome 4</span></div>
-    <div class="int-card"><span class="int-num">06</span><span class="int-nome">nome 5</span></div>
-    <div class="int-card"><span class="int-num">07</span><span class="int-nome">nome</span></div>
-  </div>
-</div>
-    
+      <div class="integrantes">
+        <div class="int-label">integrantes</div>
+        <div class="int-grid">
+          <div class="int-card"><span class="int-num">01</span><span class="int-nome">mateus eugenio</span></div>
+          <div class="int-card"><span class="int-num">02</span><span class="int-nome">leonardo</span></div>
+          <div class="int-card"><span class="int-num">03</span><span class="int-nome">lucas pizzatto</span></div>
+          <div class="int-card"><span class="int-num">04</span><span class="int-nome">marcos</span></div>
+          <div class="int-card"><span class="int-num">05</span><span class="int-nome">alexandre</span></div>
+          <div class="int-card"><span class="int-num">06</span><span class="int-nome">casimiro</span></div>
+          <div class="int-card"><span class="int-num">07</span><span class="int-nome">mateus 2</span></div>
+        </div>
+      </div>
     </section>
 
+    <!-- SOBRE -->
     <section id="sobre">
-  <h2>O que é a Luz Azul</h2>
-
-  <div class="sobre-grid">
-    <div class="img-box">
-      <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8">
-    </div>
-
-    <div class="sobre-txt">
-      <p>A luz azul é emitida naturalmente pelo <span class="destaque">sol</span>, mas também por dispositivos eletrônicos. Ela possui alta energia e consegue penetrar <span class="destaque">profundamente nos olhos</span>.</p>
-      <p>Durante o dia ajuda na atenção, mas à noite pode <span class="destaque">prejudicar o sono</span> e desregular o relógio biológico.</p>
-
-      <div class="sobre-cards">
-        <div class="sobre-card">
-          <div class="sobre-card-label">comprimento de onda</div>
-          <div class="sobre-card-val">400–500nm</div>
-          <div class="sobre-card-desc">espectro visível</div>
-        </div>
-        <div class="sobre-card">
-          <div class="sobre-card-label">principal fonte</div>
-          <div class="sobre-card-val">Telas LED</div>
-          <div class="sobre-card-desc">celulares e monitores</div>
+      <h2>O que é a Luz Azul</h2>
+      <div class="sobre-grid">
+        <div class="img-box"><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8"></div>
+        <div class="sobre-txt">
+          <p>A luz azul está presente em todos os nossos dias, seja por meio de fatores naturais ou artificiais. O <span class="destaque">sol</span> é sua única fonte natural. A ideia de que ela é puramente maléfica é equivocada — <span class="destaque"> ela tem pontos de grande benefício.</span></p>
+          <p>Suas fontes artificiais emitem de forma mais intensa, podendo causar o efeito contrário — inclusive desregular o relógio biológico.</p>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+      <div class="ben-grid">
+        <div class="ben-card"><div class="ben-icon b">🌙</div><div><div class="ben-title">Regulação do sono</div><div class="ben-desc">Ajuda a calibrar o ciclo natural do sono quando usada de forma equilibrada.</div></div></div>
+        <div class="ben-card"><div class="ben-icon g">⚡</div><div><div class="ben-title">Alerta e reação</div><div class="ben-desc">Melhora os estados de alerta e a velocidade de reação.</div></div></div>
+        <div class="ben-card full"><div class="ben-icon y">🙂</div><div><div class="ben-title">Humor</div><div class="ben-desc">Influencia positivamente o estado de humor quando há exposição equilibrada.</div></div></div>
+      </div>
+      <div class="bloco">
+        <h2>Riscos das Fontes Artificiais</h2>
+        <p>As fontes artificiais costumam emitir luz azul de forma mais exagerada, podendo causar o efeito contrário.</p>
+      </div>
+      <div class="alerta-card vermelho">
+        <div class="alerta-titulo">Sintomas de Exposição Excessiva</div>
+        <p>Fadiga ocular, dores de cabeça, olhos lacrimejando e vista embaçada — efeitos que <span class="destaque-vermelho">pioram durante a noite</span>, ocasionando uma grave piora no sono.</p>
+      </div>
+      <div class="alerta-card azul">
+        <div class="alerta-titulo">Não é só o celular</div>
+        <p>PCs e TVs também são fontes de luz azul artificial e contribuem para a exposição total ao longo do dia.</p>
+      </div>
+      <p class="source-line">Fonte: <a href="https://blog.eyecarehealth.com.br/luz-azul-conheca-os-sintomas-do-efeito-das-telas/" target="_blank">who.int — World Health Organization</a></p>
+    </section>
 
+    <!-- MALEFÍCIOS -->
     <section id="maleficios">
-  <h2>Malefícios</h2>
+      <h2>Malefícios</h2>
+      <p>O uso excessivo de telas pode causar diversos problemas físicos e mentais, principalmente quando ocorre por muitas horas seguidas e sem equilíbrio com sono, atividade física e convivência social. Entre os principais malefícios estão:</p>
+      <div class="tags">
+        <div class="tag"><span class="tag-num">01</span> Ansiedade e estresse</div>
+        <div class="tag"><span class="tag-num">02</span> Piora da qualidade do sono</div>
+        <div class="tag"><span class="tag-num">03</span> Dificuldade de concentração</div>
+        <div class="tag"><span class="tag-num">04</span> Dores nos olhos, pescoço e coluna</div>
+        <div class="tag"><span class="tag-num">05</span> Sedentarismo</div>
+        <div class="tag"><span class="tag-num">06</span> Irritabilidade</div>
+        <div class="tag"><span class="tag-num">07</span> Sintomas depressivos</div>
+        <div class="tag"><span class="tag-num">08</span> Isolamento social</div>
+        <div class="tag"><span class="tag-num">09</span> Queda no rendimento escolar ou profissional</div>
+      </div>
+      <div class="mal-footer">
+        <div class="mal-footer-icon">🌙</div>
+        <div>
+          <div class="mal-footer-label">atenção</div>
+          <p>Além disso, a exposição intensa às telas antes de dormir pode reduzir a produção de <span class="destaque">melatonina</span>, hormônio responsável pelo sono, dificultando o descanso adequado.</p>
+        </div>
+      </div>
+      <p class="source-line">Fonte: <a href="https://educapes.capes.gov.br/handle/capes/1133679" target="_blank">who.int — World Health Organization</a></p>
+    </section>
 
-  <div class="mal-grid">
-    <div class="mal-card">
-      <div class="mal-icon">😴</div>
-      <div>
-        <div class="mal-title">Insônia e dificuldade para dormir</div>
-        <div class="mal-desc">A luz azul inibe a produção de melatonina, o hormônio do sono, fazendo o cérebro acreditar que ainda é dia.</div>
-      </div>
-    </div>
-    <div class="mal-card">
-      <div class="mal-icon">👁️</div>
-      <div>
-        <div class="mal-title">Cansaço e irritação nos olhos</div>
-        <div class="mal-desc">O foco constante em telas reduz a taxa de piscar dos olhos, causando ressecamento e fadiga visual.</div>
-      </div>
-    </div>
-    <div class="mal-card">
-      <div class="mal-icon">🧠</div>
-      <div>
-        <div class="mal-title">Redução da concentração</div>
-        <div class="mal-desc">A privação de sono causada pela luz azul afeta diretamente a memória, o foco e o raciocínio.</div>
-      </div>
-    </div>
-    <div class="mal-card">
-      <div class="mal-icon">📉</div>
-      <div>
-        <div class="mal-title">Queda no desempenho diário</div>
-        <div class="mal-desc">A fadiga crônica compromete o rendimento escolar, físico e emocional ao longo do tempo.</div>
-      </div>
-    </div>
-  </div>
-
-  <p class="mal-footer">
-    O uso excessivo de telas, principalmente <span class="destaque">à noite</span>, pode desregular o relógio biológico — causando fadiga constante e impactando toda a rotina.
-  </p>
-</section>
+    <!-- PREVENÇÃO -->
     <section id="prevencao">
-  <h2>Prevenção</h2>
+      <h2>Prevenção</h2>
+      <p>Para evitar os problemas causados pelo uso excessivo de telas, é importante manter hábitos saudáveis e equilibrar o tempo no celular, computador, televisão e videogames.</p>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-num">01</div><div class="tl-label">Estabelecer limites de tempo de uso diário</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-num">02</div><div class="tl-label">Evitar telas antes de dormir</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-num">03</div><div class="tl-label">Fazer pausas frequentes durante o uso</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-num">04</div><div class="tl-label">Praticar atividades físicas</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-num">05</div><div class="tl-label">Manter contato social presencial</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-num">06</div><div class="tl-label">Priorizar momentos de lazer fora das telas</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-num">07</div><div class="tl-label">Manter boa postura ao usar dispositivos</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-num">08</div><div class="tl-label">Ajustar brilho e distância da tela para proteger os olhos</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-num">09</div><div class="tl-label">Criar horários sem celular, como durante refeições ou estudos</div></div>
+      </div>
+      <div class="alert">
+        <div class="alert-icon">👨‍👩‍👧</div>
+        <div>
+          <div class="alert-label">recomendação</div>
+          <p>Especialistas recomendam que crianças e adolescentes tenham acompanhamento dos responsáveis para garantir um uso mais saudável da tecnologia.</p>
+        </div>
+      </div>
+      <p class="source-line">Fonte: <a href="https://www.who.int/publications/i/item/9789241550536" target="_blank">who.int — World Health Organization</a></p>
+    </section>
 
-  <div class="prev-lista">
-    <div class="prev-item">
-      <div class="prev-num">01</div>
-      <div class="prev-body">
-        <div class="prev-title">Ativar modo noturno</div>
-        <div class="prev-desc">Ative o Night Mode ou filtro de luz azul no celular e computador após o anoitecer para reduzir a emissão.</div>
-      </div>
-    </div>
-    <div class="prev-item">
-      <div class="prev-num">02</div>
-      <div class="prev-body">
-        <div class="prev-title">Evitar telas antes de dormir</div>
-        <div class="prev-desc">Desligue as telas pelo menos 1 hora antes de dormir para permitir que a melatonina seja produzida normalmente.</div>
-      </div>
-    </div>
-    <div class="prev-item">
-      <div class="prev-num">03</div>
-      <div class="prev-body">
-        <div class="prev-title">Regra 20-20-20</div>
-        <div class="prev-desc">A cada 20 minutos de tela, olhe para algo a 6 metros de distância por 20 segundos para descansar os olhos.</div>
-      </div>
-    </div>
-    <div class="prev-item">
-      <div class="prev-num">04</div>
-      <div class="prev-body">
-        <div class="prev-title">Reduzir o brilho</div>
-        <div class="prev-desc">Ajuste o brilho da tela de acordo com o ambiente. Em locais escuros, brilho alto força ainda mais os olhos.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
+    <!-- ESTATÍSTICAS -->
     <section id="estatisticas">
-  <h2>Estatísticas</h2>
+      <div class="est">
+        <h2 class="sec-title">Estatísticas</h2>
 
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-num">7h+</div>
-      <div class="stat-label">por dia em frente a telas</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">60%</div>
-      <div class="stat-label">dos jovens com problemas de sono</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">2h</div>
-      <div class="stat-label">críticas antes de dormir</div>
-    </div>
-  </div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-num">74,4%</div><div class="stat-lbl">dos adolescentes brasileiros com uso excessivo</div></div>
+          <div class="stat-card"><div class="stat-num">28%</div><div class="stat-lbl">com uso problemático de jogos online</div></div>
+          <div class="stat-card"><div class="stat-num">11%</div><div class="stat-lbl">com uso que interfere na vida diária</div></div>
+        </div>
 
-  <hr class="divider">
+        <hr class="divider">
 
-  <div class="info-grid">
-    <div class="info-card">
-      <div class="info-title">Uso crescente</div>
-      <div class="info-desc">O tempo médio em frente a telas cresce a cada ano — em 2024 atingiu mais de 7 horas diárias entre jovens.</div>
-    </div>
-    <div class="info-card">
-      <div class="info-title">Impacto no sono</div>
-      <div class="info-desc">Mais de 60% dos adolescentes relatam dificuldades para dormir, muitas vezes relacionadas ao uso noturno de telas.</div>
-    </div>
-    <div class="info-card">
-      <div class="info-title">Horário crítico</div>
-      <div class="info-desc">As 2 horas antes de dormir são as mais prejudiciais — a luz azul nesse período suprime até 85% da melatonina.</div>
-    </div>
-    <div class="info-card">
-      <div class="info-title">Visão prejudicada</div>
-      <div class="info-desc">Casos de miopia em jovens cresceram 40% nas últimas décadas, com forte correlação ao uso excessivo de telas.</div>
-    </div>
-  </div>
+        <div class="g-grid">
+          <div class="g-card">
+            <div class="g-lbl">Uso excessivo — adolescentes brasileiros</div>
+            <canvas id="pizza" height="200"></canvas>
+          </div>
+          <div class="g-card">
+            <div class="g-lbl">Estudo USP</div>
+            <p class="usp-txt"><span>28%</span> dos adolescentes brasileiros apresentavam sinais de uso problemático de jogos online, reconhecido pela OMS como Transtorno de Jogo pela Internet.</p>
+            <br>
+            <p class="usp-txt">O Governo Federal brasileiro afirma que o uso excessivo de telas está associado ao aumento de:</p>
+            <p class="usp-txt"><span>ansiedade;</span></p>
+            <p class="usp-txt"><span>depressão;</span></p>
+            <p class="usp-txt"><span>problemas de sono;</span></p>
+            <p class="usp-txt"><span>sobrepeso;</span></p>
+            <p class="usp-txt"><span>dificuldades de atenção;</span></p>
+            <p class="usp-txt"><span>isolamento social.</span></p>
+          </div>
+        </div>
 
-  <p class="footer-txt">
-    Jovens passam em média mais de <span class="destaque">7 horas por dia</span> em frente a telas — número que cresce a cada ano e preocupa especialistas de saúde ao redor do mundo.
-  </p>
-</section>
+        <hr class="divider">
+
+        <div class="rec-lbl">Dados complementares</div>
+        <div class="graficos3">
+          <div class="gc">
+            <div class="gc-lbl">Problemas de sono</div>
+            <canvas id="sono" height="140"></canvas>
+            <div class="gc-desc">pior qualidade de sono associada ao uso de telas antes de dormir</div>
+          </div>
+          <div class="gc">
+            <div class="gc-lbl">Ansiedade e depressão</div>
+            <canvas id="ansiedade" height="140"></canvas>
+            <div class="gc-desc">dos usuários com +4h diárias apresentam sintomas de ansiedade</div>
+          </div>
+          <div class="gc">
+            <div class="gc-lbl">Sobrepeso</div>
+            <canvas id="sobrepeso" height="140"></canvas>
+            <div class="gc-desc">de risco maior em jovens com 2h+ diárias de tela</div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="rec-lbl">Recomendações — Sociedade Brasileira de Pediatria</div>
+        <div class="rec-grid">
+          <div class="rec-card"><div class="rec-idade">até 2 anos</div><div class="rec-desc">Evitar telas completamente</div></div>
+          <div class="rec-card"><div class="rec-idade">2 a 5 anos</div><div class="rec-desc">Máximo de 1 hora por dia</div></div>
+          <div class="rec-card"><div class="rec-idade">adolescentes</div><div class="rec-desc">Cerca de 2 a 3 horas por dia, evitando usar à noite</div></div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- MINI JOGO -->
+        <h2 class="titulo">Seu dia em 24 horas</h2>
+        <div class="inputs">
+          <div class="inp-card">
+            <div class="inp-lbl a">Ocupado / Escola</div>
+            <div class="inp-num a" id="v-ocupado">8h</div>
+            <input type="range" class="slider" min="0" max="16" value="8" id="s-ocupado">
+            <div class="sub">horas por dia</div>
+          </div>
+          <div class="inp-card">
+            <div class="inp-lbl b">Sono</div>
+            <div class="inp-num b" id="v-sono">8h</div>
+            <input type="range" class="slider b" min="0" max="16" value="8" id="s-sono">
+            <div class="sub">horas por dia</div>
+          </div>
+          <div class="inp-card">
+            <div class="inp-lbl c">Celular</div>
+            <div class="inp-num c" id="v-celular">3h</div>
+            <input type="range" class="slider c" min="0" max="16" value="3" id="s-celular">
+            <div class="sub">horas por dia</div>
+          </div>
+        </div>
+        <div class="bottom">
+          <div><canvas id="pizza2" height="260"></canvas></div>
+          <div>
+            <div class="livre-box">
+              <div class="livre-lbl">Tempo livre restante</div>
+              <div class="livre-num" id="v-livre">5h</div>
+              <div class="livre-sub">de 24 horas no dia</div>
+            </div>
+            <div class="aviso ok" id="aviso">Bom equilíbrio!</div>
+            <div class="legenda">
+              <div class="leg-item"><div class="leg-dot" style="background:#4d8eff"></div><span id="leg-a">Ocupado — 8h</span></div>
+              <div class="leg-item"><div class="leg-dot" style="background:#a78bfa"></div><span id="leg-b">Sono — 8h</span></div>
+              <div class="leg-item"><div class="leg-dot" style="background:#34d399"></div><span id="leg-c">Celular — 3h</span></div>
+              <div class="leg-item"><div class="leg-dot" style="background:#fbbf24"></div><span id="leg-d">Tempo livre — 5h</span></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="source-line">Fontes: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12364383/" target="_blank">PMC</a> · <a href="https://health.choc.org/the-effects-of-screen-time-on-children-the-latest-research-parents-should-know/" target="_blank">CHOC Health</a> · <a href="https://sqmagazine.co.uk/social-media-screen-time-statistics/" target="_blank">SQ Magazine</a> · <a href="https://www.allconnect.com/blog/screen-time-stats" target="_blank">Allconnect</a></p>
+      </div>
+    </section>
 
   </main>
 
   <script src="script.js"></script>
+  <script>
+    Chart.defaults.color='#475569';
+    Chart.defaults.borderColor='#0f1a2e';
+    Chart.defaults.font.family='Rajdhani';
+    Chart.defaults.font.size=12;
+
+    new Chart(document.getElementById('pizza'),{
+      type:'pie',
+      data:{
+        labels:['Uso excessivo (74,4%)','Uso adequado (25,6%)'],
+        datasets:[{data:[74.4,25.6],backgroundColor:['#4d8eff','#0f1a2e'],borderColor:['#000','#000'],borderWidth:2}]
+      },
+      options:{plugins:{legend:{position:'bottom',labels:{padding:14,boxWidth:10,color:'#475569'}}}}
+    });
+
+    function donut(id,val,label,color){
+      new Chart(document.getElementById(id),{
+        type:'doughnut',
+        data:{
+          labels:[label,''],
+          datasets:[{data:[val,100-val],backgroundColor:[color,'#0f1a2e'],borderColor:['#000','#000'],borderWidth:2}]
+        },
+        options:{cutout:'72%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.dataIndex===0?' '+val+'%':''}}}},
+        plugins:[{id:'center',afterDraw(chart){
+          const{ctx,chartArea:{top,bottom,left,right}}=chart;
+          ctx.save();ctx.font='700 22px Rajdhani';ctx.fillStyle=color;
+          ctx.textAlign='center';ctx.textBaseline='middle';
+          ctx.fillText(val+'%',(left+right)/2,(top+bottom)/2);ctx.restore();
+        }}]
+      });
+    }
+    donut('sono',33,'Sono','#4d8eff');
+    donut('ansiedade',45,'Ansiedade','#4d8eff');
+    donut('sobrepeso',42,'Sobrepeso','#4d8eff');
+
+    // mini jogo
+    let chart2 = new Chart(document.getElementById('pizza2'),{
+      type:'pie',
+      data:{
+        labels:['Ocupado','Sono','Celular','Tempo livre'],
+        datasets:[{data:[8,8,3,5],backgroundColor:['#4d8eff','#a78bfa','#34d399','#fbbf24'],borderColor:'#000',borderWidth:2}]
+      },
+      options:{plugins:{legend:{display:false}},animation:{duration:300}}
+    });
+
+    function update(){
+      const o=+document.getElementById('s-ocupado').value;
+      const s=+document.getElementById('s-sono').value;
+      const c=+document.getElementById('s-celular').value;
+      const total=o+s+c;
+      const livre=Math.max(0,24-total);
+      document.getElementById('v-ocupado').textContent=o+'h';
+      document.getElementById('v-sono').textContent=s+'h';
+      document.getElementById('v-celular').textContent=c+'h';
+      document.getElementById('v-livre').textContent=livre+'h';
+      document.getElementById('leg-a').textContent='Ocupado — '+o+'h';
+      document.getElementById('leg-b').textContent='Sono — '+s+'h';
+      document.getElementById('leg-c').textContent='Celular — '+c+'h';
+      document.getElementById('leg-d').textContent='Tempo livre — '+livre+'h';
+      chart2.data.datasets[0].data=[o,s,c,livre];
+      chart2.update();
+      const av=document.getElementById('aviso');
+      if(total>24){av.className='aviso bad';av.textContent='⚠ Passou de 24h! Ajuste os valores.';document.getElementById('v-livre').textContent='0h';}
+      else if(c>=6){av.className='aviso bad';av.textContent='Muito tempo de celular!';}
+      else if(c>=4){av.className='aviso warn';av.textContent='Atenção ao uso do celular.';}
+      else if(livre>=3){av.className='aviso ok';av.textContent='Bom equilíbrio!';}
+      else{av.className='aviso warn';av.textContent='Pouco tempo livre no dia.';}
+    }
+    document.getElementById('s-ocupado').addEventListener('input',update);
+    document.getElementById('s-sono').addEventListener('input',update);
+    document.getElementById('s-celular').addEventListener('input',update);
+  </script>
 </body>
-</html>
+</html
